@@ -1,8 +1,9 @@
 import sys
+import string
 
 
 def password_check(passwd):  # Checks password strength
-    specialSymbols = "!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
+    specialSymbols = string.punctuation
     val = True
     errors = []
 
@@ -31,7 +32,11 @@ def password_check(passwd):  # Checks password strength
 
 # Main method
 def main():
-    passwd = sys.argv[1]  # Get password from command line
+    try:  # Check if a password has been passed
+        passwd = sys.argv[1]  # Get password from command line
+    except IndexError:
+        print('Password not provided. Try again.')
+        sys.exit(1)
     result, errors = password_check(passwd)  # Call password_check function
 
     if result:
